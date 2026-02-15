@@ -16,7 +16,21 @@
 
     <properties>
         <grpc-spring-boot-starter.version>3.1.0.RELEASE</grpc-spring-boot-starter.version>
+        <grpc.version>1.60.0</grpc.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Force gRPC version to match shared module -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Shared module (for proto files) -->
