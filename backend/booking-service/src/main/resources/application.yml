@@ -22,3 +22,7 @@ spring:
         default_schema: booking_service
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
