@@ -3,6 +3,8 @@ package com.gym.bookingservice.application.service;
 import com.gym.bookingservice.domain.model.Booking;
 import com.gym.bookingservice.infrastructure.grpc.ClassServiceGrpcClient;
 import com.gym.bookingservice.infrastructure.persistence.BookingJpaRepository;
+import com.gym.shared.events.BookingCreatedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Responsibilities:
  * - Coordinate domain operations
  * - Call external services (gRPC)
- * - Publish events (future: Kafka/RabbitMQ)
+ * - Publish events (Spring ApplicationEvent for demo, Kafka/RabbitMQ for production)
  */
 @Service
 @Transactional
@@ -20,11 +22,14 @@ public class BookingService {
 
     private final BookingJpaRepository bookingRepository;
     private final ClassServiceGrpcClient classServiceClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     public BookingService(BookingJpaRepository bookingRepository,
-                          ClassServiceGrpcClient classServiceClient) {
+                          ClassServiceGrpcClient classServiceClient,
+                          ApplicationEventPublisher eventPublisher) {
         this.bookingRepository = bookingRepository;
         this.classServiceClient = classServiceClient;
+        this.eventPublisher = eventPublisher;
     }
 
     /**
@@ -34,7 +39,7 @@ public class BookingService {
      * 1. Validate class exists and has available spots (via gRPC)
      * 2. Create booking using domain factory
      * 3. Persist booking
-     * 4. Publish event (TODO: add event publishing when event infrastructure is ready)
+     * 4. Publish event for Class Service to decrement spots
      */
     public Booking createBooking(Long classId, String userName) {
         // 1. Validate via gRPC
@@ -46,8 +51,13 @@ public class BookingService {
         // 3. Persist
         Booking savedBooking = bookingRepository.save(booking);
 
-        // 4. Publish event (TODO: implement when event infrastructure is ready)
-        // applicationEventPublisher.publishEvent(new BookingCreatedEvent(classId));
+        // 4. Publish event
+        BookingCreatedEvent event = new BookingCreatedEvent(
+            classId,
+            savedBooking.getId(),
+            userName
+        );
+        eventPublisher.publishEvent(event);
 
         return savedBooking;
     }
