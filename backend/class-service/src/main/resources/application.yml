@@ -1,6 +1,11 @@
 server:
   port: 8081
 
+# gRPC Server Configuration
+grpc:
+  server:
+    port: 9091
+
 spring:
   application:
     name: class-service

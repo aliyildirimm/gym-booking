@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>shared</module>
         <module>class-service</module>
         <module>booking-service</module>
     </modules>

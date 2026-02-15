@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.gym.shared.grpc";
+option java_outer_classname = "ClassServiceProto";
+
+package classservice;
+
+service ClassService {
+  rpc GetClass(GetClassRequest) returns (GetClassResponse);
+}
+
+message GetClassRequest {
+  int64 id = 1;
+}
+
+message GetClassResponse {
+  int64 id = 1;
+  string name = 2;
+  int32 total_capacity = 3;
+  int32 available_spots = 4;
+  bool exists = 5;
+}
