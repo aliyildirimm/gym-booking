@@ -48,8 +48,7 @@ gym-booking/
 **Goal**: Working monorepo skeleton
 
 1. Create monorepo structure
-2. Setup `docker-compose.yml`: postgres + 2 Java services + frontend
-3. Create shared event library (empty for now)
+2. Setup `docker-compose.yml`: postgres
 4. Init postgres schemas via SQL scripts
 
 **Deliverable**: `docker-compose up` runs, postgres accessible
