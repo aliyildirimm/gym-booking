@@ -86,10 +86,12 @@ We use a **3-layer architecture** with **Hexagonal Architecture** (Ports & Adapt
 - **Java Version**: 17
 
 ### Frontend
-- **Framework**: React
-- **UI Library**: Ionic
+- **Framework**: React 18
+- **UI Library**: Ionic React 8
+- **Routing**: React Router v5 (via @ionic/react-router)
 - **HTTP Client**: Axios
-- **Build**: Vite or Create React App
+- **Build Tool**: Vite 6
+- **TypeScript**: Full TypeScript support
 
 ### Infrastructure
 - **Docker Compose**: PostgreSQL + 2 Java services + frontend

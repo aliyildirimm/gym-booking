@@ -1,21 +1,24 @@
-import { IonApp, IonRouterOutlet, IonReactRouter, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { Route } from 'react-router-dom';
 import ClassList from './pages/ClassList';
-import BookingForm from './pages/BookingForm';
+import { BookingForm } from './features/booking';
 
-setupIonicReact();
+setupIonicReact({
+  mode: 'md', // Material Design mode for consistency
+});
 
-function App(): JSX.Element {
+function App() {
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/" element={<ClassList />} />
-          <Route path="/book/:classId" element={<BookingForm />} />
+          <Route path="/" component={ClassList} exact />
+          <Route path="/book/:classId" component={BookingForm} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

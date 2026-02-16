@@ -8,7 +8,7 @@ interface PrimaryButtonProps {
   expand?: 'block' | 'full';
   className?: string;
   type?: 'button' | 'submit';
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLIonButtonElement>) => void;
 }
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({

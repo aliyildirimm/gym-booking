@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import type { GymClass, Booking, CreateBookingPayload } from './types/api';
 
-const classApiBase = process.env.REACT_APP_CLASS_API_URL || 'http://localhost:8081';
-const bookingApiBase = process.env.REACT_APP_BOOKING_API_URL || 'http://localhost:8082';
+const classApiBase = 'http://localhost:8081';
+const bookingApiBase = 'http://localhost:8082';
 
 const classApi = axios.create({ baseURL: classApiBase });
 const bookingApi = axios.create({ baseURL: bookingApiBase });

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { IonList } from '@ionic/react';
-import { useNavigate } from 'react-router-dom';
-import { getClasses } from '../api';
-import type { GymClass } from '../types/api';
+import { useHistory } from 'react-router-dom';
+import { useClasses, type AsyncState } from '../hooks';
 import {
   PageLayout,
   LoadingSpinner,
@@ -10,47 +9,49 @@ import {
   EmptyState,
   ClassListItem,
 } from '../components';
+import { GymClass } from '../types/api';
 
 const ClassList: React.FC = () => {
-  const navigate = useNavigate();
-  const [classes, setClasses] = useState<GymClass[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { state: classesState, classes, fetchClasses } = useClasses();
 
   useEffect(() => {
-    getClasses()
-      .then((res) => {
-        setClasses(res.data ?? []);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message ?? 'Failed to load classes');
-        setClasses([]);
-      })
-      .finally(() => setLoading(false));
+    fetchClasses();
   }, []);
 
-  return (
-    <PageLayout title="Gym Classes">
-      {loading && <LoadingSpinner />}
-      {error != null && <ErrorMessage message={error} />}
-      {!loading && error == null && (
-        <IonList>
-          {classes.length === 0 ? (
-            <EmptyState message="No classes available." />
-          ) : (
-            classes.map((c) => (
-              <ClassListItem
-                key={c.id}
-                gymClass={c}
-                onClick={() => navigate(`/book/${c.id}`)}
-              />
-            ))
-          )}
-        </IonList>
-      )}
-    </PageLayout>
-  );
+  return <PageLayout title="Gym Classes"><ClasListInner classesState={classesState} classes={classes}/></PageLayout>;
+
 };
 
+
+const ClasListInner: React.FC<{ classesState: AsyncState<GymClass[]>, classes: GymClass[] }> = ({ classesState, classes }) => {
+  const history = useHistory();
+
+  if (classesState.status === 'loading') {
+    return (
+        <LoadingSpinner />
+    );
+  }
+
+  if (classesState.status === 'error') {
+    return (
+        <ErrorMessage message={classesState.error} />
+    );
+  }
+
+  return (
+      <IonList>
+        {classes.length === 0 ? (
+          <EmptyState message="No classes available." />
+        ) : (
+          classes.map((c) => (
+            <ClassListItem
+              key={c.id}
+              gymClass={c}
+              onClick={() => history.push(`/book/${c.id}`)}
+            />
+          ))
+        )}
+      </IonList>
+  );
+};
 export default ClassList;
