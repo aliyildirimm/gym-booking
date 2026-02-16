@@ -5,7 +5,7 @@ import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { Route } from 'react-router-dom';
-import ClassList from './pages/ClassList';
+import ClassList from './features/classes/pages/ClassList';
 import { BookingForm } from './features/booking';
 
 setupIonicReact({

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { IonList } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
-import { useClasses, type AsyncState } from '../hooks';
+import { useClasses, type AsyncState } from '../../../hooks';
 import {
   PageLayout,
   LoadingSpinner,
   ErrorMessage,
   EmptyState,
   ClassListItem,
-} from '../components';
-import { GymClass } from '../types/api';
+} from '../../../components';
+import { GymClass } from '../../../types/api';
 
 const ClassList: React.FC = () => {
   const { state: classesState, classes, fetchClasses } = useClasses();
@@ -26,7 +26,7 @@ const ClassList: React.FC = () => {
 const ClasListInner: React.FC<{ classesState: AsyncState<GymClass[]>, classes: GymClass[] }> = ({ classesState, classes }) => {
   const history = useHistory();
 
-  if (classesState.status === 'loading') {
+  if (classesState.status === 'loading' || classesState.status === 'idle') {
     return (
         <LoadingSpinner />
     );

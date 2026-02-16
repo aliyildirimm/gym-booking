@@ -10,13 +10,14 @@ interface UseClassesResult {
 }
 
 export function useClasses(): UseClassesResult {
-  const [state, setState] = useState<AsyncState<GymClass[]>>({ status: 'loading' });
+  const [state, setState] = useState<AsyncState<GymClass[]>>({ status: 'idle' });
 
   const fetchClasses = async () => {
     setState({ status: 'loading' });
 
     try {
       const res = await getClasses();
+      console.log(res)
       setState({ status: 'success', data: res.data ?? [] });
     } catch (err: unknown) {
       const error = err as { message?: string };

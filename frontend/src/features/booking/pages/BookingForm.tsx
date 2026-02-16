@@ -43,7 +43,7 @@ const BookingForm: React.FC = () => {
 
   // Determine page content based on state
   const getContent = () => {
-    if (classState.status === 'loading') {
+    if (classState.status === 'loading' || classState.status === 'idle') {
       return <LoadingSpinner />;
     }
 
@@ -81,7 +81,7 @@ const BookingForm: React.FC = () => {
   return (
     <PageLayout
       title={getTitle()}
-      showBackButton={classState.status !== 'loading'}
+      showBackButton={classState.status !== 'loading' && classState.status !== 'idle'}
       backHref="/"
     >
       {getContent()}

@@ -10,7 +10,7 @@ interface UseBookingSubmitResult {
 }
 
 export function useBookingSubmit(): UseBookingSubmitResult {
-  const [state, setState] = useState<AsyncState>({ status: 'loading' });
+  const [state, setState] = useState<AsyncState>({ status: 'idle' });
 
   const submitBooking = async (payload: CreateBookingPayload): Promise<void> => {
     setState({ status: 'loading' });
@@ -26,7 +26,7 @@ export function useBookingSubmit(): UseBookingSubmitResult {
     }
   };
 
-  const reset = () => setState({ status: 'loading' });
+  const reset = () => setState({ status: 'idle' });
 
   return {
     state,
