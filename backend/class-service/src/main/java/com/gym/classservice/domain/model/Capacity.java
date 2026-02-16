@@ -37,12 +37,6 @@ public class Capacity {
         return new Capacity(total, total); // Initially all spots available
     }
 
-    /**
-     * Factory method for reconstructing from persistence
-     */
-    public static Capacity of(int total, int available) {
-        return new Capacity(total, available);
-    }
 
     /**
      * Domain behavior: Reserve a spot

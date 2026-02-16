@@ -7,6 +7,7 @@ import '@ionic/react/css/typography.css';
 import { Route } from 'react-router-dom';
 import ClassList from './features/classes/pages/ClassList';
 import { BookingForm } from './features/booking';
+import { AdminHome, CreateClass } from './features/admin';
 
 setupIonicReact({
   mode: 'md', // Material Design mode for consistency
@@ -19,6 +20,8 @@ function App() {
         <IonRouterOutlet>
           <Route path="/" component={ClassList} exact />
           <Route path="/book/:classId" component={BookingForm} />
+          <Route path="/admin" component={AdminHome} exact />
+          <Route path="/admin/create-class" component={CreateClass} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

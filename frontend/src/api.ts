@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import type { GymClass, Booking, CreateBookingPayload } from './types/api';
+import type { GymClass, Booking, CreateBookingPayload, CreateClassPayload } from './types/api';
 
 const classApiBase = 'http://localhost:8081';
 const bookingApiBase = 'http://localhost:8082';
@@ -19,4 +19,10 @@ export function createBooking(
   payload: CreateBookingPayload
 ): Promise<AxiosResponse<Booking>> {
   return bookingApi.post<Booking>('/bookings', payload);
+}
+
+export function createClass(
+  payload: CreateClassPayload
+): Promise<AxiosResponse<GymClass>> {
+  return classApi.post<GymClass>('/classes', payload);
 }

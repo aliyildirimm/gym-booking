@@ -19,3 +19,9 @@ export interface CreateBookingPayload {
   classId: number;
   userName: string;
 }
+
+/** Request body for creating a gym class */
+export interface CreateClassPayload {
+  name: string;
+  capacity: number;
+}
