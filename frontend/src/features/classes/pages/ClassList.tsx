@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { IonList } from '@ionic/react';
+import React from 'react';
+import { IonList, useIonViewWillEnter } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { useClasses, type AsyncState } from '../../../hooks';
 import {
@@ -14,9 +14,10 @@ import { GymClass } from '../../../types/api';
 const ClassList: React.FC = () => {
   const { state: classesState, classes, fetchClasses } = useClasses();
 
-  useEffect(() => {
+  // Refetch classes every time this page comes into view
+  useIonViewWillEnter(() => {
     fetchClasses();
-  }, []);
+  });
 
   return <PageLayout title="Gym Classes"><ClasListInner classesState={classesState} classes={classes}/></PageLayout>;
 
