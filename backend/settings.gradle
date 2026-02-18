@@ -1,0 +1,5 @@
+rootProject.name = 'gym-booking'
+
+include 'shared'
+include 'class-service'
+include 'booking-service'
