@@ -1,0 +1,23 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: auth_service
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+app:
+  jwt:
+    secret: your-very-long-secret-key-change-in-production
+    expiration-ms: 86400000
