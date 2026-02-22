@@ -1,5 +1,7 @@
 package com.gym.authservice.application.dto;
 
+import com.gym.authservice.domain.enums.Role;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -17,4 +19,7 @@ public class SignUpDto {
         message = "Password must contain at least one special character"
     )
     public String password;
+
+
+    public Role role;
 }

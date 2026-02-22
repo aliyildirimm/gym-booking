@@ -1,5 +1,7 @@
 package com.gym.authservice.domain;
 
+import com.gym.authservice.domain.enums.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,14 +22,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private Role role;
+
     protected User() {}
 
-    public User(String username, String password) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
-    public Long getId() { return id; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
+    public Role getRole() { return role; }
 }
